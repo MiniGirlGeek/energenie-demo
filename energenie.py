@@ -7,7 +7,7 @@ bit2 = 15
 bit3 = 16
 bit4 = 13
 
-ook = 18
+on_off_key = 18
 enable = 22
 
 GPIO.setmode(GPIO.BOARD)
@@ -18,10 +18,10 @@ GPIO.setup(bit2, GPIO.OUT)
 GPIO.setup(bit3, GPIO.OUT)
 GPIO.setup(bit4, GPIO.OUT)
 
-GPIO.setup(ook, GPIO.OUT)
+GPIO.setup(on_off_key, GPIO.OUT)
 GPIO.setup(enable, GPIO.OUT)
 
-GPIO.output(ook, False)
+GPIO.output(on_off_key, False)
 GPIO.output(enable, False)
 
 GPIO.output(bit1, False)
@@ -36,13 +36,13 @@ on =  ['1011', '0111', '0110', '0101', '0100']
 off = ['0011', '1111', '1110', '1101', '1100']
 
 def change_plug_state(socket, on_or_off):
-    state = on_or_off[socket][-1] == '1'
+    state = on_or_off[socket][3] == '1'
     GPIO.output(bit1, state)
-    state = on_or_off[socket][-2] == '1'
+    state = on_or_off[socket][2] == '1'
     GPIO.output(bit2, state)
-    state = on_or_off[socket][-3] == '1'
+    state = on_or_off[socket][1] == '1'
     GPIO.output(bit3, state)
-    state = on_or_off[socket][-4] == '1'
+    state = on_or_off[socket][0] == '1'
     GPIO.output(bit4, state)
     sleep(0.1)
     GPIO.output(enable, True)
@@ -51,8 +51,8 @@ def change_plug_state(socket, on_or_off):
 
 while True:
     raw_input('Hit any key to turn on: ')
-    print('turning on')
+    print('Turning on...')
     change_plug_state(2, on)
     raw_input('Hit any key to turn off: ')
-    print('turning off')
+    print('Turning off...')
     change_plug_state(all_sockets, off)
