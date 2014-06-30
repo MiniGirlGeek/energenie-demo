@@ -1,5 +1,4 @@
 from energenie import switch_on, switch_off
-from time import sleep
 
 print("Sockets 1-4 or 0 for all")
 
